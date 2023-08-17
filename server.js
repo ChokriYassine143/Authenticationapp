@@ -121,7 +121,7 @@ app.post("/authproject/login/", (req, res) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.Client_id,
     clientSecret: process.env.Client_secret,
-    callbackURL: "https://authenticationapp.onrender.com/auth/google/secrets",
+    callbackURL: "https://authenticationapp-tgnl.onrender.com/auth/google/secrets",
     scope: ['profile', 'email'] 
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -143,7 +143,7 @@ app.get('/auth/google/secrets',
   passport.use(new GitHubStrategy({
     clientID:process.env.Client_id_github,
     clientSecret: process.env.Client_secret_github,
-    callbackURL: "https://authenticationapp.onrender.com/auth/github/secrets"
+    callbackURL: "https://authenticationapp-tgnl.onrender.com/auth/github/secrets"
   },
   function(accessToken, refreshToken, profile, done) {
     console.log(profile);
@@ -184,7 +184,7 @@ app.get('/auth/github/secret',
     clientID: process.env.Fb_App_id,
     clientSecret: process.env.Fb_Client_token,
   
-    callbackURL: "https://authenticationapp.onrender.com/auth/facebook/secrets",
+    callbackURL: "https://authenticationapp-tgnl.onrender.com/auth/facebook/secrets",
     profileFields: ['id', 'displayName', 'photos', 'email'],
     scope: ['email', 'public_profile']
   },
