@@ -123,7 +123,7 @@ app.post("/authproject/login/", (req, res) => {
      })
 });
 passport.use(new GoogleStrategy({
-    clientID: process.env.Client_id,
+    clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.Client_secret,
     callbackURL: "https://authenticationapp-tgnl.onrender.com/auth/google/secrets",
     scope: ['profile', 'email'] 
