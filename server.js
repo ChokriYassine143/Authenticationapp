@@ -202,7 +202,7 @@ app.get('/auth/github/secrets',
 app.get('/auth/facebook',
   passport.authenticate('facebook'));
 
-app.get('/auth/facebook/secret',
+app.get('/auth/facebook/secrets',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
   
