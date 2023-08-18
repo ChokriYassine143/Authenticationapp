@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 require('dotenv').config();
 const bodyParser = require("body-parser");
-const session = require("'cookie-session");
+const session = require("cookie-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -33,7 +33,6 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
-    store: new RedisStore(),
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
