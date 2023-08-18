@@ -29,6 +29,11 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
+  cookie:{
+    secure: true,
+    maxAge:60000
+       },
+    store: new RedisStore(),
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
