@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const connectRedis = require("connect-redis");
+const RedisStore = require("connect-redis")(session);
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -17,7 +17,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const redis = require("redis");
 
-const RedisStore = connectRedis(session);
 
 // Initialize a Redis client.
 const redisClient = redis.createClient(); 
