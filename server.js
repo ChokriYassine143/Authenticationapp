@@ -33,7 +33,7 @@ const cors = require('cors');
 const app = express();
 // Serve edited images
 app.use('/api/edited-images', express.static('uploads'));
-const RedisStore = redis(session);
+
 
 app.use(cors({
   origin: '*', // Replace with your React app's URL
