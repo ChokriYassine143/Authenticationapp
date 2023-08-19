@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const redis = require('connect-redis');
+const connectRedis = require("connect-redis");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -15,7 +15,18 @@ const sharp = require('sharp');
 const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+import {createClient} from "redis"
 
+const RedisStore = connectRedis(session);
+
+// Initialize a Redis client.
+const redisClient = createClient();
+
+// Initialize a Redis store for sessions.
+const redisStore = new RedisStore({
+  client: redisClient,
+  prefix: "myapp:", // This is optional but can be useful to avoid key collisions
+});
 const cors = require('cors');
 const app = express();
 // Serve edited images
@@ -34,7 +45,7 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
-    store: new RedisStore({}),
+    store: redisStore,
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
