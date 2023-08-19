@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const RedisStore = require("connect-redis").default
+
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -15,22 +15,26 @@ const sharp = require('sharp');
 const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const redis = require("redis");
+const redis = require('redis');
+const connectRedis = require('connect-redis');
 
 
-// Initialize a Redis client.
-const redisClient = redis.createClient(); 
-// Initialize a Redis client.
 
-
-// Initialize a Redis store for sessions.
-const redisStore = new RedisStore({
-  client: redisClient,
-  prefix: "myapp:", // This is optional but can be useful to avoid key collisions
-});
 const cors = require('cors');
 const app = express();
-// Serve edited images
+app.set('trust proxy', 1);
+const RedisStore = connectRedis(session)
+//Configure redis client
+const redisClient = redis.createClient({
+    host: 'localhost',
+    port: 6379
+})
+redisClient.on('error', function (err) {
+    console.log('Could not establish a connection with redis. ' + err);
+});
+redisClient.on('connect', function (err) {
+    console.log('Connected to redis successfully');
+});
 app.use('/api/edited-images', express.static('uploads'));
 
 
@@ -46,7 +50,7 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
-    store: redisStore,
+    store: new RedisStore({ client: redisClient }),
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
