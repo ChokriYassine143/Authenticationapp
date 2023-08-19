@@ -22,7 +22,7 @@ const redis = require("redis");
 const redisClient = redis.createClient(); 
 // Initialize a Redis client.
 
-
+redisClient.connect().catch(console.error)
 // Initialize a Redis store for sessions.
 const redisStore = new RedisStore({
   client: redisClient,
