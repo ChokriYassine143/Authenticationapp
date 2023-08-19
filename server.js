@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const RedisStore = require("connect-redis");
+const RedisStore = require("connect-redis").default
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
