@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const redis = require('connect-redis');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -19,7 +20,7 @@ const cors = require('cors');
 const app = express();
 // Serve edited images
 app.use('/api/edited-images', express.static('uploads'));
-
+const RedisStore = redis(session);
 
 app.use(cors({
   origin: '*', // Replace with your React app's URL
@@ -33,6 +34,7 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
+    store: new RedisStore({}),
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
