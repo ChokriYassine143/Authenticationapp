@@ -15,12 +15,14 @@ const sharp = require('sharp');
 const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-import {createClient} from "redis"
+const redis = require("redis");
 
 const RedisStore = connectRedis(session);
 
 // Initialize a Redis client.
-const redisClient = createClient();
+const redisClient = redis.createClient(); 
+// Initialize a Redis client.
+
 
 // Initialize a Redis store for sessions.
 const redisStore = new RedisStore({
