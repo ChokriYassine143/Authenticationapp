@@ -15,8 +15,7 @@ const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const MongoStore = require('connect-mongo');
-
-
+const memorystroe =new session.MemoryStore();
 
 const cors = require('cors');
 const app = express();
@@ -37,7 +36,7 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
-    store: MongoStore.create({ mongoUrl: process.env.Mongodb }),
+    store: memorystroe,
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
