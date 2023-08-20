@@ -14,7 +14,7 @@ const sharp = require('sharp');
 const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
+const MongoStore = require('connect-mongo');
 
 
 
@@ -37,6 +37,7 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
+    store: MongoStore.create({ mongoUrl: process.env.Mongodb }),
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
