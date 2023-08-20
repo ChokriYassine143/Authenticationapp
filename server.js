@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const MongoStore = require('connect-mongo')(session);
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -23,12 +22,6 @@ const cors = require('cors');
 const app = express();
 app.set('trust proxy', 1);
 
-const mongoStoreInstance = new MongoStore({
-  // Configuration options for the store
-  // For example:
-  url:process.env.Mongodb, // Replace with your MongoDB connection string
-  ttl: 14 * 24 * 60 * 60, // Session TTL in seconds (optional)
-});
 app.use('/api/edited-images', express.static('uploads'));
 
 
@@ -44,7 +37,6 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
-    store: mongoStoreInstance,
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
