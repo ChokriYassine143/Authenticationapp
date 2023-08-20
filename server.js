@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const bodyParser = require("body-parser");
 const session = require("express-session");
-
+const MongoStore = require('connect-mongo')(session);
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -39,6 +39,7 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
+    store: new MongoStore(options),
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
