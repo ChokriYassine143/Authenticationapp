@@ -23,11 +23,10 @@ const connectRedis = require('connect-redis');
 const cors = require('cors');
 const app = express();
 app.set('trust proxy', 1);
-const RedisStore = connectRedis(session)
 //Configure redis client
 const redisClient = redis.createClient({
     host: 'localhost',
-    port: 6379
+    port: 3001
 })
 redisClient.on('error', function (err) {
     console.log('Could not establish a connection with redis. ' + err);
