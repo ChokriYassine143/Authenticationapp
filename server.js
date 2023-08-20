@@ -15,25 +15,15 @@ const sharp = require('sharp');
 const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const redis = require('redis');
-const connectRedis = require('connect-redis');
+
 
 
 
 const cors = require('cors');
 const app = express();
 app.set('trust proxy', 1);
-//Configure redis client
-const redisClient = redis.createClient({
-    host: 'localhost',
-    port: 3001
-})
-redisClient.on('error', function (err) {
-    console.log('Could not establish a connection with redis. ' + err);
-});
-redisClient.on('connect', function (err) {
-    console.log('Connected to redis successfully');
-});
+
+
 app.use('/api/edited-images', express.static('uploads'));
 
 
@@ -49,7 +39,6 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
-    store: new RedisStore({ client: redisClient }),
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
