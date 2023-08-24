@@ -40,7 +40,8 @@ app.use(session({
     maxAge:60000
        },
      store: new MongoStore({
-      mongooseConnection: mongoose.connection, // Use your existing Mongoose connection
+      mongoUrl: url, // Use your MongoDB connection URL
+      collection: 'sessions',  // Use your existing Mongoose connection
       ttl: 60 * 60 * 24, // Session TTL (optional)
     }),
     secret: process.env.Secret,
@@ -51,11 +52,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 ;
-mongoose.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-    
-});
+
 const userSchema = new mongoose.Schema({
   email: String, // Unique identifier for local authentication
   googleId: String, // Unique identifier for Google authentication
