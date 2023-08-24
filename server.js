@@ -14,8 +14,8 @@ const sharp = require('sharp');
 const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const MongoStore = require('connect-mongo')(session);
-
+const MongoStoreFactory = require('connect-mongo');
+const MongoStore = MongoStoreFactory(session);
 const cors = require('cors');
 const app = express();
 app.set('trust proxy', 1);
