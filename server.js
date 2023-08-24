@@ -14,8 +14,8 @@ const sharp = require('sharp');
 const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const MongoStoreFactory = require('connect-mongo');
-const MongoStore = new  MongoStoreFactory(session);
+const MongoStore = require('connect-mongo');
+
 const cors = require('cors');
 const app = express();
 app.set('trust proxy', 1);
@@ -39,11 +39,10 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
-     store: new MongoStore({
-      mongoUrl: url, // Use your MongoDB connection URL
-      collection: 'sessions',  // Use your existing Mongoose connection
-      ttl: 60 * 60 * 24, // Session TTL (optional)
-    }),
+   store: MongoStore.create({
+    mongoUrl: url,
+    ttl: 14 * 24 * 60 * 60 // = 14 days. Default
+  }),
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
