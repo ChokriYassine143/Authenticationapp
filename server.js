@@ -26,11 +26,16 @@ mongoose.connect(url, {
 });
 app.use('/api/edited-images', express.static('uploads'));
 
+app.use((req, res, next) => {
+  console.log("Session Data:", req.session);
+  next();
+});
 
 app.use(cors({
-  origin: '*', // Replace with your React app's URL
-  credentials: true // This allows cookies to be sent in CORS requests
+  origin: 'http://localhost:3001',
+  credentials: true
 }));
+
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
