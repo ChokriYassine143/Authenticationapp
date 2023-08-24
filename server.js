@@ -15,7 +15,7 @@ const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const MongoStoreFactory = require('connect-mongo');
-const MongoStore = MongoStoreFactory(session);
+const MongoStore = new  MongoStoreFactory(session);
 const cors = require('cors');
 const app = express();
 app.set('trust proxy', 1);
