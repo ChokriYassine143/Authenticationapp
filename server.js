@@ -42,7 +42,7 @@ app.use(session({
      store: new MongoStore({
       mongooseConnection: mongoose.connection, // Use your existing Mongoose connection
       ttl: 60 * 60 * 24, // Session TTL (optional)
-    })
+    }),
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
