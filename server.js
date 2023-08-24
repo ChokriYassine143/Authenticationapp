@@ -36,8 +36,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
   cookie:{
-    secure: true,
-    maxAge:60000
+     httpOnly: true,
+      maxAge: 60000,
+      domain: 'localhost', // Change to your actual domain when deployed
+      path: '/',
        },
    store: MongoStore.create({
     mongoUrl: url,
