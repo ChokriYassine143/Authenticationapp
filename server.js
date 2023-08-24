@@ -14,13 +14,16 @@ const sharp = require('sharp');
 const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const MongoStore = require('connect-mongo');
-const memorystroe =new session.MemoryStore();
+const MongoStore = require('connect-mongo')(session);
 
 const cors = require('cors');
 const app = express();
 app.set('trust proxy', 1);
-
+const url=process.env.Mongodb;
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 app.use('/api/edited-images', express.static('uploads'));
 
 
@@ -36,14 +39,17 @@ app.use(session({
     secure: true,
     maxAge:60000
        },
-    store: memorystroe,
+     store: new MongoStore({
+      mongooseConnection: mongoose.connection, // Use your existing Mongoose connection
+      ttl: 60 * 60 * 24, // Session TTL (optional)
+    })
     secret: process.env.Secret,
     resave: false,
     saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-const url=process.env.Mongodb;
+
 ;
 mongoose.connect(url, {
     useNewUrlParser: true,
