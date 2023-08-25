@@ -43,8 +43,9 @@ app.use(session({
   cookie:{
      httpOnly: true,
       maxAge: 60000,
-      domain: 'localhost', // Change to your actual domain when deployed
-      path: '/',
+    httpOnly: true, 
+    secure: true, 
+    sameSite: 'none'
        },
    store: MongoStore.create({
     mongoUrl: url,
