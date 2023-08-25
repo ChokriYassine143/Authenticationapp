@@ -15,7 +15,7 @@ const axios = require('axios');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const MongoStore = require('connect-mongo');
-
+const  cookieParser = require('cookie-parser')
 const cors = require('cors');
 const app = express();
 app.set('trust proxy', 1);
@@ -24,6 +24,7 @@ mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+app.use(cookieParser())
 app.use('/api/edited-images', express.static('uploads'));
 
 app.use((req, res, next) => {
