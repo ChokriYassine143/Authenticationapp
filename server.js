@@ -41,6 +41,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
+  proxy: true,
   cookie:{
      httpOnly: true,
       maxAge: 60000,
